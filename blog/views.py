@@ -21,6 +21,11 @@ def index(request):
     return render(request,'blog/index.html',{'blog_title':title, 'posts':posts})
 
 def detail(request,post_id):
-    post=next((item for item in posts if item['id'] == int(post_id)),None)
-    logger.info(f'post value is {post}')
+    # post=next((item for item in posts if item['id'] == int(post_id)),None)
+
+    # logger.info(f'post value is {post}')
+
+    # getting data from post by id
+    post=Post.objects.get(pk=post_id)
+
     return render(request,'blog/detail.html',{'post':post})
