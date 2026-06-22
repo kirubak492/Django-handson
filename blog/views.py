@@ -18,6 +18,9 @@ def home(request):
 def index(request):
     title='kiruba blog'
     posts=Post.objects.all() #get post data using model
+
+    # logger.info(f'post value is {posts[0].content}')
+    
     return render(request,'blog/index.html',{'blog_title':title, 'posts':posts})
 
 def detail(request,slug):
@@ -28,4 +31,6 @@ def detail(request,slug):
     # getting data from post by id
     post=Post.objects.get(slug=slug)
 
-    return render(request,'blog/detail.html',{'post':post})
+    related_posts=Post.objects.filter(category=post.category).exclude(pk=post.id)
+
+    return render(request,'blog/detail.html',{'post':post,'related_posts':related_posts})
